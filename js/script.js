@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add variables that store DOM elements you will need to reference and/or manipulate
   const ul = document.querySelector(".student-list");
   const lis = ul.children;
-  showStudents(lis, 0);
+
   // Create a function to hide all of the items in the list excpet for the ten you want to show
   // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
   function showStudents(list, page) {
@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     pagediv.appendChild(div);
     const ul = document.createElement("ul");
     div.appendChild(ul);
-
-    for (let i = 0; i <= pagesNeeded; i++) { 
+    // looping through the pagination links
+    for (let i = 0; i <= pagesNeeded; i++) {
       const li = document.createElement("li");
       ul.appendChild(li);
       const a = document.createElement("A");
@@ -37,9 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
       let j = i;
       a.textContent = j + 1;
       li.appendChild(a);
-      div.addEventListener("click", e => { // Adding functionality for the pagination buttons
-        if (e.target.textContent == i + 1) { // by adding the event listener to the div directly and checking if the pagination's link text is equal to 'i +1'
-          showStudents(lis, i); // displaying the students according to which page is being clicked so it's dynamic
+      if (a.textContent === "1")
+        //make a default setting for the first link to be active
+        a.className = "active";
+      div.addEventListener("click", e => {
+        // Adding functionality for the pagination links
+        if (e.target.textContent == i + 1) {
+          // by adding the event listener to the div directly and checking if the pagination's link text is equal to 'i +1'
+          showStudents(lis, i); // displaying the students according to which page is being clicked
           e.target.className = "active";
         } else {
           a.className = "";
@@ -47,8 +52,42 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   };
-  appendPages(lis);
 
+  appendPages(lis);
   // Add functionality to the pagination buttons so that they show and hide the correct items
-  // Tip: If you created a function above to show/hide list items, it could be helpful here
+  //Search box
+  const divSearch = document.createElement("div");
+  const names = document.querySelectorAll("h3");
+  showStudents(lis, 0);
+  divSearch.className = "student-search";
+  document.querySelector(".page-header").appendChild(divSearch);
+  const search = document.createElement("input");
+  search.type = "text";
+  search.placeholder = "Search for students...";
+  divSearch.appendChild(search);
+  const button = document.createElement("button");
+  button.textContent = "Search";
+  divSearch.appendChild(button);
+
+  function searchFunc() {
+    for (let i = 0; i < lis.length; i++) {
+      let li = lis[i];
+      if (li) {
+        if (names[i].innerHTML.indexOf(search.value) > -1) {
+          li.style.display = "";
+        } else {
+          li.style.display = "none";
+        }
+      }
+      // if (names[i].innerHTML.indexOf(search.value) == -1) {
+      //   const h2 = document.createElement("h2");
+      //   h2.textContent = "Sorry, no one was found!";
+      //   document.querySelector(".page-header").appendChild(h2);}
+    }
+  }
+  button.addEventListener("click", searchFunc);
+  // search.addEventListener("keyup", searchFunc);
+  if (search.input === "") {
+    showStudents(lis, 0);
+  }
 });
