@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
   appendPages(lis);
-  // Add functionality to the pagination buttons so that they show and hide the correct items
   //Search box
   const divSearch = document.createElement("div");
   const names = document.querySelectorAll("h3");
