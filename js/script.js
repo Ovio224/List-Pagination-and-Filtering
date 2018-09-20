@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Create and append the pagination links
   const appendPages = list => {
-    let pagesNeeded = Math.floor(lis.length / 10);
+    let pagesNeeded = Math.floor(list.length / 10);
     const div = document.createElement("div");
     div.className = "pagination";
     const pagediv = document.querySelector(".page");
@@ -44,15 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Adding functionality for the pagination links
         if (e.target.textContent == i + 1) {
           // by adding the event listener to the div directly and checking if the pagination's link text is equal to 'i +1'
-          showStudents(lis, i); // displaying the students according to which page is being clicked
+          showStudents(list, i); // displaying the students according to which page is being clicked
           e.target.className = "active";
         } else {
-          a.className = "";
+          a.className = "inactive";
         }
       });
     }
   };
-
   appendPages(lis);
   // Add functionality to the pagination buttons so that they show and hide the correct items
   //Search box
@@ -69,25 +68,32 @@ document.addEventListener("DOMContentLoaded", () => {
   button.textContent = "Search";
   divSearch.appendChild(button);
 
+
+
+
+  //Searching filtering function
   function searchFunc() {
     for (let i = 0; i < lis.length; i++) {
       let li = lis[i];
       if (li) {
         if (names[i].innerHTML.indexOf(search.value) > -1) {
           li.style.display = "";
+          searchResults = [li];
+          appendPages(searchResults);
         } else {
           li.style.display = "none";
         }
       }
+
+
       // if (names[i].innerHTML.indexOf(search.value) == -1) {
       //   const h2 = document.createElement("h2");
       //   h2.textContent = "Sorry, no one was found!";
       //   document.querySelector(".page-header").appendChild(h2);}
     }
   }
+
+
   button.addEventListener("click", searchFunc);
-  // search.addEventListener("keyup", searchFunc);
-  if (search.input === "") {
-    showStudents(lis, 0);
-  }
+  // button.addEventListener("click", appendPages(searchResults));
 });
