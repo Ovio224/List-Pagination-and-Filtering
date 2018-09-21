@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Add variables that store DOM elements you will need to reference and/or manipulate
+  // Add variables
   const ul = document.querySelector(".student-list");
   const lis = ul.children;
-
-  // Create a function to hide all of the items in the list excpet for the ten you want to show
-  // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
+  const pagediv = document.querySelector(".page");
+  const names = document.querySelectorAll("h3");
+  // Create a function to hide all of the items in the list excpet for the ten to show
   function showStudents(list, page) {
     let pageFirstIndex = 10 * page;
     let pageLastIndex = 10 * (page + 1) - 1;
@@ -21,10 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Create and append the pagination links
   const appendPages = list => {
-    let pagesNeeded = Math.floor(list.length / 10);
+    const pagesNeeded = Math.floor(list.length / 10);
     const div = document.createElement("div");
     div.className = "pagination";
-    const pagediv = document.querySelector(".page");
     pagediv.appendChild(div);
     const ul = document.createElement("ul");
     div.appendChild(ul);
@@ -55,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   appendPages(lis);
   //Search box
   const divSearch = document.createElement("div");
-  const names = document.querySelectorAll("h3");
   showStudents(lis, 0);
   divSearch.className = "student-search";
   document.querySelector(".page-header").appendChild(divSearch);
@@ -66,9 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.createElement("button");
   button.textContent = "Search";
   divSearch.appendChild(button);
-
-
-
 
   //Searching filtering function
   function searchFunc() {
@@ -81,18 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
           appendPages(searchResults);
         } else {
           li.style.display = "none";
+          searchResults = [li];
+          appendPages(searchResults);
         }
       }
-
-
       // if (names[i].innerHTML.indexOf(search.value) == -1) {
       //   const h2 = document.createElement("h2");
       //   h2.textContent = "Sorry, no one was found!";
-      //   document.querySelector(".page-header").appendChild(h2);}
+      //   document.querySelector(".page-header").appendChild(h2);
     }
   }
-
-
   button.addEventListener("click", searchFunc);
-  // button.addEventListener("click", appendPages(searchResults));
 });
