@@ -72,12 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (li) {
         if (names[i].innerHTML.indexOf(search.value) > -1) {
           li.style.display = "";
-          searchResults = [li];
-          appendPages(searchResults);
+          // searchResults = [li];
+          // appendPages(searchResults);
         } else {
           li.style.display = "none";
-          searchResults = [li];
-          appendPages(searchResults);
+          // searchResults = [li];
+          // appendPages(searchResults);
         }
       }
       // if (names[i].innerHTML.indexOf(search.value) == -1) {
