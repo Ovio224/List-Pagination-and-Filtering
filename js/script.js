@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const lis = ul.children;
   const pagediv = document.querySelector(".page");
   const names = document.querySelectorAll("h3");
-  // Create a function to hide all of the items in the list excpet for the ten to show
+  // Create a function to hide all of the items in the list except for the ten to show
   function showStudents(list, page) {
     let pageFirstIndex = 10 * page;
     let pageLastIndex = 10 * (page + 1) - 1;
